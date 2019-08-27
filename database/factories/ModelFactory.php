@@ -22,3 +22,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+//创建文章表的假数据
+$factory->define(\App\Post::class,function(Faker\Generator $faker){
+    return [
+        'title'=>$faker->sentence(6),
+        'content'=>$faker->sentence(10),
+    ];
+});
