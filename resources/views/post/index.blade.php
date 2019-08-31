@@ -1,6 +1,11 @@
 @extends("layout.main")
 
 @section("content")
+    <style>
+        p>img{
+            display: none;
+        }
+    </style>
     <div class="col-sm-8 blog-main">
         @include("post.carousel")
         <div style="height: 20px;">
@@ -9,10 +14,10 @@
             @foreach($posts as $post)
             <div class="blog-post">
                 <h2 class="blog-post-title"><a href="/posts/{{$post->id}}" >{{$post->title}}</a></h2>
-                <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="/user/">123123</a></p>
+                <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="/user/">{{$post->user->name}}</a></p>
 
                 {!! str_limit($post->content, 100, '...') !!}
-                <p class="blog-post-meta">赞 123 | 评论3123</p>
+                <p class="blog-post-meta">赞 {{$post->zans_count}}| 评论{{$post->comments_count}}</p>
             </div>
             @endforeach
 

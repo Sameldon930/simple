@@ -8,25 +8,30 @@
         <div class="blog-post">
             <div style="display:inline-flex">
                     <h2 class="blog-post-title">{{$post->title}}</h2>
+                    @can('update',$post)
                     <a style="margin: auto"  href="/posts/{{$post->id}}/edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
+                    @endcan
+                    @can('delete',$post)
                     <a style="margin: auto"  href="/posts/{{$post->id}}/delete">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>
+                    @endcan
             </div>
 
-            <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">132123</a></p>
+            <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">{{$post->user->name}}</a></p>
 
             <p>{!! $post->content !!}</p>
-{{--            <div>--}}
-{{--                @if($post->zan(\Auth::id())->exists())--}}
-{{--                    <a href="/posts/{{$post->id}}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>--}}
-{{--                @else--}}
-{{--                    <a href="/posts/{{$post->id}}/zan" type="button" class="btn btn-primary btn-lg">赞</a>--}}
-{{--                @endif--}}
+            <div>
+{{--                判断这个用户是否已经点过赞--}}
+                @if($post->zan(\Illuminate\Support\Facades\Auth::id())->exists())
+                    <a href="/posts/{{$post->id}}/unzan" type="button" class="btn  btn-default">取消赞</a>
+                @else
+                    <a href="/posts/{{$post->id}}/zan" type="button" class="btn  btn-primary">赞</a>
+                @endif
+            </div>
 
-{{--            </div>--}}
         </div>
 
         <div class="panel panel-default">
@@ -35,7 +40,14 @@
 
             <!-- List group -->
             <ul class="list-group">
-
+                @foreach($post->comments as $comment)
+                <li class="list-group-item">
+                    <h5>{{$comment->created_at}} by {{ $comment->user->name }} </h5>
+                    <div>
+                        {{$comment->content}}
+                    </div>
+                </li>
+                @endforeach
             </ul>
         </div>
 
@@ -45,11 +57,12 @@
 
             <!-- List group -->
             <ul class="list-group">
-                <form action="/posts/comment" method="post">
+                <form action="/posts/{{ $post->id }}/comment" method="post">
                     {{csrf_field()}}
                     <input type="hidden" name="post_id" value="{{$post->id}}"/>
                     <li class="list-group-item">
                         <textarea name="content" class="form-control" rows="10"></textarea>
+                        @include('layout.error')
                         <button class="btn btn-default" type="submit">提交</button>
                     </li>
                 </form>
