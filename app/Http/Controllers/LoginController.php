@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -23,6 +24,10 @@ class LoginController extends Controller
         //逻辑
         $user = request(['email','password']);
         $is_remember = boolVal(request('is_remember'));//转换成布尔值
+        $info = User::where('email','=',request('email'))->first();
+        if($info === null){
+            return redirect()->guest('login')->withError('登陆的账号不存在！');
+        }
        if(Auth::attempt($user,$is_remember)){//如果登陆成功
 //            成功进入
            return redirect('/posts');

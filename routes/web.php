@@ -31,10 +31,14 @@ Route::post('/login','LoginController@login');
 Route::group(['middleware'=>'auth:web'],function(){
     //登出
     Route::get('/logout','LoginController@logout');
+
+
     //个人设置页面
     Route::get('/user/me/setting','UserController@setting');
     //个人设置处理
     Route::post('/user/me/setting','LoginController@settingStore');
+
+
     //文章列表页
     Route::get('/posts','PostController@index');
     //文章详情页
@@ -53,10 +57,20 @@ Route::group(['middleware'=>'auth:web'],function(){
     Route::post('/posts/image/upload','PostController@imageUpload');
     //提交评论
     Route::post('/posts/{post}/comment','PostController@comment');
+
+
     //点赞
     Route::get('/posts/{post}/zan','PostController@zan');
     //取消赞
     Route::get('/posts/{post}/unzan','PostController@unzan');
+
+
+    //个人中心
+    Route::get('/user/{user}','UserController@show');
+    //对某个用户进行关注
+    Route::post('/user/{user}/fan','UserController@fan');
+    //取消关注
+    Route::post('/user/{user}/unfan','UserController@unfan');
 
 });
 

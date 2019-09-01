@@ -5,8 +5,25 @@ namespace App;
  * 文章模型
  */
 use App\Model;
+use Laravel\Scout\Searchable;
+
 class Post extends Model
 {
+    use Searchable;
+    //定义索引里面的type
+    public function searchableAs()
+    {
+        return "post";
+    }
+    //定义有哪些字段需要搜索
+    public function toSearchableArray()
+    {
+        return [
+            'title'=>$this->title,
+            'content'=>$this->content
+        ];
+    }
+
     //
     protected $table = "posts";
     protected $fillable = ['title','content','user_id'];

@@ -1,6 +1,6 @@
 <div class="blog-masthead">
     <div class="container">
-        <form action="/posts/search" method="GET">
+        <form action="/posts" method="GET">
         <ul class="nav navbar-nav navbar-left">
             <li>
                 <a class="blog-nav-item " href="/posts">首页</a>
@@ -29,7 +29,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/user/">我的主页</a></li>
+                        <li><a href="/user/{{\Illuminate\Support\Facades\Auth::id()}}">我的主页</a></li>
                         <li><a href="/user//setting">个人设置</a></li>
                         <li><a href="/logout">登出</a></li>
                     </ul>
