@@ -20,7 +20,6 @@
                 <p class="blog-post-meta">赞 {{$post->zans_count}}| 评论{{$post->comments_count}}</p>
             </div>
             @endforeach
-
             {{$posts->links()}}
         </div><!-- /.blog-main -->
     </div>
