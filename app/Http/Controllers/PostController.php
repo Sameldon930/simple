@@ -6,14 +6,23 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Post;
 use App\Zan;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
 
     //文章列表页
-    public function index(){
-        $posts = Post::orderBy('created_at','desc')->withCount(['comments','zans'])->paginate(15);
+    public function index(Request $request){
+        $req = $request->all();
+        $where = [];
+        if(!empty($req['query'])){
+            $where[] = ['title','like','%'.$req['query'].'%'];
+        }
+        $posts = Post::orderBy('created_at','desc')
+            ->where($where)
+            ->withCount(['comments','zans'])
+            ->paginate(15);
 
         return view('post/index',compact('posts'));
     }
