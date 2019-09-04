@@ -32,7 +32,6 @@ class TopicController extends Controller
         ]);
         //处理
         $post_ids = request('post_ids');
-
         $topic_id = $topic->id;
         //编辑数组
         foreach($post_ids  as $post_id){

@@ -7,6 +7,7 @@
     "require": {
         "php": ">=5.6.4",
         "algolia/algoliasearch-client-php": "^2.3",
+        "almasaeed2010/adminlte": "~2.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.4.*",
         "laravel/scout": "^7.1",
@@ -51,5 +52,11 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
     }
 }

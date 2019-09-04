@@ -5,6 +5,7 @@ namespace App;
  * 文章模型
  */
 use App\Model;
+use Illuminate\Database\Schema\Blueprint;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -64,6 +65,12 @@ class Post extends Model
         return $query->doesntHave('postTopics','and',function ($q) use($topic_id){
             $q->where('topic_id',$topic_id);
         });
+    }
+
+    //全局scope的方法
+    public function scopeAviable($query)
+    {
+        return $query->whereIn('status', [0, 1]);
     }
 }
 

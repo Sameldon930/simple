@@ -11,7 +11,6 @@
 |
 */
 
-
 /**
  * 用户模块
  */
@@ -28,7 +27,7 @@ Route::get('/login','LoginController@index')->name('login');
 //登陆的处理
 Route::post('/login','LoginController@login');
 
-Route::group(['middleware'=>'auth:web'],function(){
+Route::group(['middleware'=>'auth:user'],function(){
     //登出
     Route::get('/logout','LoginController@logout');
 
@@ -79,4 +78,9 @@ Route::group(['middleware'=>'auth:web'],function(){
     Route::post('/topic/{topic}/submit','TopicController@submit');
 
 });
+
+include_once "admin.php";
+
+
+
 

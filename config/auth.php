@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'user',
         'passwords' => 'users',
     ],
 
@@ -36,11 +36,14 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'user' => [//前台会员登陆验证的模型
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'admin'=>[//后台管理员登陆验证的模型
+            'driver'=>'session',
+            'provider'=>'admins',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -65,15 +68,19 @@ return [
     */
 
     'providers' => [
+        //提供给前台用户登陆
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+        //提供给后台用户登陆
+        'admins'=>[
+            'driver'=>'eloquent',
+            'model'=>App\AdminUser::class
+        ]
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+
+
     ],
 
     /*
