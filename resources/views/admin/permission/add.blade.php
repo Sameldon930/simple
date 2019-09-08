@@ -12,26 +12,26 @@
                         <!-- /.box-header -->
                         <div class="box box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">增加用户</h3>
+                                <h3 class="box-title">增加权限</h3>
                             </div>
                             <!-- /.box-header -->
                             <!-- form start -->
-                            <form role="form" action="/admin/users/store" method="POST">
-
+                            <form role="form" action="/admin/permissions/store" method="POST">
                                 {{csrf_field()}}
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">用户名</label>
+                                        <label >权限名</label>
                                         <input type="text" class="form-control" name="name">
                                     </div>
+                                </div>
+                                <div class="box-body">
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">密码</label>
-                                        <input type="password" class="form-control"  name="password">
+                                        <label>描述</label>
+                                        <input type="text" class="form-control" name="description">
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    @include('admin.layout.error')
                                     <button type="submit" class="btn btn-primary">提交</button>
                                 </div>
                             </form>

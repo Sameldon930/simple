@@ -10,30 +10,32 @@
                     <div class="box">
 
                         <div class="box-header with-border">
-                            <h3 class="box-title">用户列表</h3>
+                            <h3 class="box-title">权限列表</h3>
                         </div>
-                        <a type="button" class="btn " href="/admin/users/create" >增加用户</a>
+                        <a type="button" class="btn " href="/admin/permissions/create" >增加权限</a>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <table class="table table-bordered">
                                 <tbody><tr>
                                     <th style="width: 10px">#</th>
-                                    <th>用户名称</th>
+                                    <th>权限名称</th>
+                                    <th>描述</th>
                                     <th>操作</th>
                                 </tr>
-                                @foreach($admins as $admin)
+                                @foreach($permissions as $permission)
                                 <tr>
-                                    <td>{{$admin->id}}.</td>
-                                    <td>{{$admin->name}}</td>
+                                    <td>{{$permission->id}}.</td>
+                                    <td>{{$permission->name}}</td>
+                                    <td>{{$permission->description}}</td>
                                     <td>
-                                        <a type="button" class="btn" href="/admin/users/1/role" >角色管理</a>
                                     </td>
                                 </tr>
                                 @endforeach
 
                                 </tbody></table>
+                            {{$permissions->links()}}
                         </div>
-                        {{$admins->links()}}
+
                     </div>
                 </div>
             </div>
