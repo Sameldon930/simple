@@ -19,7 +19,7 @@ Route::group(['prefix'=>'admin'],function (){
         Route::get('/home','\App\Admin\Controllers\HomeController@index');
 
         //使用门卫 进行权限验证  这个模块是系统管理模块  包含 管理员 角色 权限 的功能
-        Route::group(['middleware'=>'can:system'],function (){
+//        Route::group(['middleware'=>'can:system'],function (){
             //管理员模块
             Route::get('/users','\App\Admin\Controllers\UserController@index');//管理员列表
             Route::get('/users/create','\App\Admin\Controllers\UserController@create');//管理员新增页面
@@ -38,23 +38,27 @@ Route::group(['prefix'=>'admin'],function (){
             Route::post('/roles/store','\App\Admin\Controllers\RoleController@store');//处理创建角色逻辑
             Route::get('/roles/{role}/permission','\App\Admin\Controllers\RoleController@permission');//给角色分配权限页面
             Route::post('/roles/{role}/permission','\App\Admin\Controllers\RoleController@storePermission');//处理分配权限的逻辑
-        });
+//        });
 
         //使用门卫 进行权限验证  这个模块是文章管理模块
-        Route::group(['middleware'=>'can:post'],function (){
+//        Route::group(['middleware'=>'can:post'],function (){
             //文章审核模块
             Route::get('/posts','\App\Admin\Controllers\PostController@index');//获取待审核文章
             Route::post('/posts/{post}/status','\App\Admin\Controllers\PostController@status');//审核文章逻辑处理
-        });
+//        });
 
         //使用门卫 进行权限验证  这个模块是通知管理模块
         Route::group(['middleware'=>'can:notice'],function (){
 
         });
-        //使用门卫 进行权限验证  这个模块是专题管理模块
-        Route::group(['middle'=>'can:topic'],function (){
 
-        });
+        //使用门卫 进行权限验证  这个模块是专题管理模块
+//        Route::group(['middleware' => 'can:topic'], function(){
+            Route::resource('topics', '\App\Admin\Controllers\TopicController', ['only' => [
+                'index', 'create', 'store', 'destroy'
+            ]]);
+//        });
+
 
 
 
