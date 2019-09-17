@@ -66,5 +66,15 @@ class User extends Authenticatable
         return $this->stars()->where('star_id',$uid)->count();
     }
 
+    //用户收到的通知 一个用户收到多个通知 一个通知发给多个用户  多对多关系
+    public function notices(){
+        // 关联模型 关联表 在关联表中的外键  要取的对象  然后要取的数据
+        return  $this->belongsToMany(\App\Notice::class,'user_notice','user_id','notice_id')->withPivot(['user_id','notice_id']);
+    }
+
+    //给用户发送通知
+    public function addNotice($notice){
+        return $this->notices()->save($notice);//save是增加 detach是删除
+    }
 
 }

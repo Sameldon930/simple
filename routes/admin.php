@@ -47,10 +47,12 @@ Route::group(['prefix'=>'admin'],function (){
             Route::post('/posts/{post}/status','\App\Admin\Controllers\PostController@status');//审核文章逻辑处理
 //        });
 
-        //使用门卫 进行权限验证  这个模块是通知管理模块
-        Route::group(['middleware'=>'can:notice'],function (){
-
-        });
+        //使用门卫 进行权限验证  这个模块是通知管理模块  只用到 列表页 增加  不需要删除
+//        Route::group(['middleware'=>'can:notice'],function (){
+            Route::resource('notices','\App\Admin\Controllers\NoticeController',[
+                'only'=>['index','create','store']
+            ]);
+//        });
 
         //使用门卫 进行权限验证  这个模块是专题管理模块
 //        Route::group(['middleware' => 'can:topic'], function(){

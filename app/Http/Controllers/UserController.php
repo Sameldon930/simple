@@ -8,15 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    //个人设置页面
-    public function setting(){
-        return view('user.setting');
-    }
-    //个人设置处理
-    public function settingStore(){
-
-    }
-
     //个人中心页面
     public function show(User $user){
         //获取个人信息  个人的关注 粉丝 文章数
@@ -50,5 +41,21 @@ class UserController extends Controller
             'error'=>0,
             'msg'=>'取关成功'
         ];
+    }
+    //个人设置页面
+    public function setting(){
+        $me = Auth::user();
+        return view('user/setting', compact('me'));
+    }
+    //个人设置处理
+    public function settingStore(Request $request,User $user){
+
+        if ($request->file('avatar')) {
+            $path = $request->file('avatar')->storePublicly(md5(\Auth::id() . time()));
+            $user->avatar = "/storage/". $path;
+        }
+
+        $user->save();
+        return back();
     }
 }

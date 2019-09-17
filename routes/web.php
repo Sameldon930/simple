@@ -35,7 +35,7 @@ Route::group(['middleware'=>'auth:user'],function(){
     //个人设置页面
     Route::get('/user/me/setting','UserController@setting');
     //个人设置处理
-    Route::post('/user/me/setting','LoginController@settingStore');
+    Route::post('/user/{user}/setting','UserController@settingStore');
 
 
     //文章列表页
@@ -76,6 +76,10 @@ Route::group(['middleware'=>'auth:user'],function(){
     Route::get('/topic/{topic}','TopicController@show');
     //专题投稿
     Route::post('/topic/{topic}/submit','TopicController@submit');
+
+
+    //通知模块
+    Route::get('/notices','NoticeController@index');
 
 });
 
